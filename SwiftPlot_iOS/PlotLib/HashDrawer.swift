@@ -285,7 +285,7 @@ class HashDrawer
         }
         
         let path = UIBezierPath()
-        path.moveToPoint(CGPoint(x: location.x-dx, y: location.y-dy))
+        path.moveToPoint(CGPoint(x: location.x-dx , y: location.y-dy))
         path.addLineToPoint(CGPoint(x: location.x+dx, y: location.y+dy))
         
         CGContextBeginPath(context)

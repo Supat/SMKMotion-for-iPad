@@ -259,11 +259,10 @@ import UIKit
         self.axeLayer?.layer.frame = self.bounds
         self.axeLayer?.hashLayer.frame = self.bounds
         resizeFrameWithString(self.titleField!.text!)
-        
     }
 
     
-    private func resizeFrameWithString(title: String) {
+    func resizeFrameWithString(title: String) {
 //        let nsTitle = title as NSString
 //        let textSize = nsTitle.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(15)])
         self.titleField?.text = title

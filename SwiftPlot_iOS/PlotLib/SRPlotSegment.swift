@@ -55,7 +55,6 @@ class SRPlotSegment : NSObject {
                 let ppx = axeSystem!.graph.pointsPerUnit.x
                 let ppy = axeSystem!.graph.pointsPerUnit.y
                 let channelPos = (axeSystem!.signalType == .Split) ? CGFloat(c) * ppy : 0
-                
                 lines[i*2].x = align(CGFloat(i) * (ppx / 60))
                 lines[i*2].y = (channelPos + (self.layer.bounds.height * apy)) + (CGFloat(data) * ppy)
                 lines[i*2+1].x = align(CGFloat(i+1) * (ppx / 60))

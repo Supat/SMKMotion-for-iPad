@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "74860DF414FA831E22512F9403DE79B63537DF7B",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "62592B050249AE64B65AC5004CE4E6FBBAE35295" : 0,
+    "74860DF414FA831E22512F9403DE79B63537DF7B" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "72A25F7C-225E-4F9B-AA04-682490490289",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "62592B050249AE64B65AC5004CE4E6FBBAE35295" : "",
+    "74860DF414FA831E22512F9403DE79B63537DF7B" : "SMKMotion-for-iPad\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "SwiftPlot_iOS",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "SwiftPlot_iOS.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/kalanyu\/SMKiOS.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "62592B050249AE64B65AC5004CE4E6FBBAE35295"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Supat\/SMKMotion-for-iPad.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "74860DF414FA831E22512F9403DE79B63537DF7B"
+    }
+  ]
+}

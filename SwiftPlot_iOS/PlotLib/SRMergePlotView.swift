@@ -18,9 +18,8 @@ class SRMergePlotView: SRPlotView {
         set {
             self.axeLayer?.maxDataRange = newValue * 2
             let textSize = "\(self.maxDataRange)".sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(15)])
-                self.axeLayer?.graph.padding.x = textSize.width
+                self.axeLayer?.padding.x = textSize.width * 1.5
                 self.axeLayer?.layer.setNeedsDisplay()
-
         }
     }
     
@@ -54,6 +53,19 @@ class SRMergePlotView: SRPlotView {
         
     }
     
+    //MARK: UIView delegates
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.axeLayer?.contentsScale = UIScreen.mainScreen().scale
+        self.axeLayer?.manageDataSublayers()
+        self.axeLayer?.rescaleSublayers()
+        self.axeLayer?.layer.frame = self.bounds
+        self.axeLayer?.hashLayer.frame = self.bounds
+        self.axeLayer?.hashSystem.anchorPoint.y = 0.5
+        resizeFrameWithString(self.titleField!.text!)
+    }
+    
     // The initial position of a segment that is meant to be displayed on the left side of the graph.
     // This positioning is meant so that a few entries must be added to the segment's history before it becomes
     // visible to the user. This value could be tweaked a little bit with varying results, but the X coordinate
@@ -66,6 +78,30 @@ class SRMergePlotView: SRPlotView {
             //line width hack
             return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x, y: graphAxes.position.y + 1)
         }
+    }
+    
+    override func resizeFrameWithString(title: String) {
+        //        let nsTitle = title as NSString
+        //        let textSize = nsTitle.sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(15)])
+        self.titleField?.text = title
+        //        self.titleField?.frame = CGRectMake(self.bounds.width/2 - textSize.width/2, self.titleField!.frame.origin.y, textSize.width, textSize.height)
+        self.titleField?.sizeToFit()
+        
+        var axeBounds = self.bounds
+        //flipped coordinates
+        axeBounds.origin.y = 0
+        print("frame height \(self.titleField!.frame.height)")
+        axeLayer?.layer.frame.origin = axeBounds.origin
+        axeLayer?.layer.frame.size.height = self.frame.height - (self.titleField!.frame.height * 2)
+        axeLayer?.layer.frame.size.width = self.frame.width
+        //        axeLayer?.dataLayer.bounds.size.height = axeLayer!.layer.bounds.size.height - self.titleField!.frame.height
+        axeLayer?.layer.setNeedsDisplay()
+        
+        
+        //        axeLayer?.layer.frame.origin = axeBounds.origin
+        //        axeLayer?.layer.frame.size.height = self.frame.height - self.titleField!.frame.height
+        ////        axeLayer?.dataLayer.bounds.size.height = axeLayer!.layer.bounds.size.height - self.titleField!.frame.height
+        //        axeLayer?.layer.setNeedsDisplay()
     }
     
 }

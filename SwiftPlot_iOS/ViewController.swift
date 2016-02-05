@@ -17,33 +17,26 @@ class ViewController: UIViewController, NSSPlashViewDelegate, SMKMotionSensorDel
     
 
     //TODO: make this setup able when used in code
-    @IBOutlet weak var graphView: SRPlotView! {
+    @IBOutlet weak var graphView: SRMergePlotView! {
         didSet {
             graphView.title = "Gyrometer"
             graphView.totalSecondsToDisplay = 10.0
             graphView.totalChannelsToDisplay = 3
             //axe padding
             graphView.samplingRate = 60
-            graphView.axeLayer?.maxDataRange = 1500
+            graphView.maxDataRange = 100
             
-            graphView.yTicks[0] = "X"
-            graphView.yTicks[1] = "Y"
-            graphView.yTicks[2] = "Z"
         }
     }
     
-    @IBOutlet weak var secondGraphView: SRPlotView! {
+    @IBOutlet weak var secondGraphView: SRMergePlotView! {
         didSet {
             secondGraphView.title = "Accelerometer"
             secondGraphView.totalSecondsToDisplay = 10.0
             secondGraphView.totalChannelsToDisplay = 3
             //axe padding
             secondGraphView.samplingRate = 60
-            secondGraphView.axeLayer?.maxDataRange = 1500
-            
-            secondGraphView.yTicks[0] = "X"
-            secondGraphView.yTicks[1] = "Y"
-            secondGraphView.yTicks[2] = "Z"
+            secondGraphView.maxDataRange = 100
         }
     }
     
@@ -54,7 +47,6 @@ class ViewController: UIViewController, NSSPlashViewDelegate, SMKMotionSensorDel
             thirdGraphView.totalChannelsToDisplay = 4
             //axe padding
             thirdGraphView.samplingRate = 60
-            thirdGraphView.axeLayer?.maxDataRange = 2
             
             thirdGraphView.yTicks[0] = "W"
             thirdGraphView.yTicks[1] = "X"
@@ -83,11 +75,11 @@ class ViewController: UIViewController, NSSPlashViewDelegate, SMKMotionSensorDel
         // Do any additional setup after loading the view, typically from a nib.
         self.view.layer.backgroundColor = UIColor.redColor().CGColor
         
-        persistanceSensorReconnectTimer = NSTimer(timeInterval: 1/60, target: self, selector: "persistReconnectToSensor", userInfo: nil, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(persistanceSensorReconnectTimer!, forMode: NSRunLoopCommonModes)
+//        persistanceSensorReconnectTimer = NSTimer(timeInterval: 1/60, target: self, selector: "persistReconnectToSensor", userInfo: nil, repeats: true)
+//        NSRunLoop.currentRunLoop().addTimer(persistanceSensorReconnectTimer!, forMode: NSRunLoopCommonModes)
         
         sensorModule.delegate = self
-        sensorModule.scanForRemoteSensor()
+//        sensorModule.scanForRemoteSensor()
         
     }
 
@@ -97,11 +89,12 @@ class ViewController: UIViewController, NSSPlashViewDelegate, SMKMotionSensorDel
     
     func addData2() {
         
-//        let cgCount = Double(++count) * 1/60 % 1
+        let cgCount = 0.0//Double(++count) * 1/60 % 1
         
-//        graphView.addData([cgCount, cgCount, cgCount, cgCount, cgCount , cgCount])
-//        stiffnessView.add(cgCount)
-        
+        graphView.addData([cgCount, cgCount, cgCount, cgCount, cgCount , cgCount])
+        secondGraphView.addData([cgCount, cgCount, cgCount, cgCount, cgCount , cgCount])
+        thirdGraphView.addData([cgCount, cgCount, cgCount, cgCount])
+
     }
     //MARK: Implementations
 //    func systemStartup() {
@@ -134,7 +127,9 @@ class ViewController: UIViewController, NSSPlashViewDelegate, SMKMotionSensorDel
         let gyroData : [Double] = [Double(data.gyroX), Double(data.gyroY), Double(data.gyroZ)]
         let accelData : [Double] = [Double(data.accelerateX), Double(data.accelerateY), Double(data.accelerateZ)]
         let quatData : [Double] = [Double(data.quaternionW), Double(data.quaternionX), Double(data.quaternionY), Double(data.quaternionZ)]
-        
+        print("gyro: \(quatData)")
+        print("accel: \(quatData)")
+        print("quat: \(quatData)")
         graphView.addData(gyroData)
         secondGraphView.addData(accelData)
         thirdGraphView.addData(quatData)
