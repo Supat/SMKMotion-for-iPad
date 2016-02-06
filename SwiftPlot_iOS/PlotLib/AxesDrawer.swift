@@ -11,7 +11,7 @@ import UIKit
 class AxesDrawer
 {
     var maxDataRange : Int = 1
-    
+    var minDataRange : Int = -1
     //padding parameter, moves the axes further in
     var padding = CGPointZero
     
@@ -56,7 +56,7 @@ class AxesDrawer
     // pointsPerUnit is essentially the "scale" of the axes
     // e.g. if you wanted there to be 100 points along an axis between -1 and 1,
     //    you'd set pointsPerUnit to 50
-    func drawAxesInRect(context: CGContext, bounds: CGRect, axeOrigin: CGPoint, xPointsToShow: CGFloat, yPointsToShow: CGFloat = 1, numberOfTicks: Int = 0, maxDataRange: Int = 1)
+    func drawAxesInRect(context: CGContext, bounds: CGRect, axeOrigin: CGPoint, xPointsToShow: CGFloat, yPointsToShow: CGFloat = 1, numberOfTicks: Int = 0, maxDataRange: Int = 1, minDataRange: Int? = nil)
     {
         CGContextTranslateCTM(context, 0.0, bounds.height)
         CGContextScaleCTM(context, 1.0, -1.0)
@@ -64,6 +64,11 @@ class AxesDrawer
         color.set()
         self.numberOfSubticks = CGFloat(numberOfTicks)
         self.maxDataRange = max(maxDataRange, 1)
+        if minDataRange != nil {
+            self.minDataRange = minDataRange!
+        } else {
+            self.minDataRange = -self.maxDataRange
+        }
 
         let ppX = (bounds.width - padding.x) / (xPointsToShow + (displayLabels ? 0.5: 0))
         var ppY = (bounds.height - padding.y) / (yPointsToShow + (displayLabels ? 0.5: 0))

@@ -25,9 +25,12 @@ class SRPlotAxe: NSObject {
     var numberOfSubticks : Int = 0
     var maxDataRange : Int = 1 {
         didSet {
+            self.minDataRange = -self.maxDataRange
             self.hashLayer.setNeedsDisplay()
         }
     }
+    
+    var minDataRange : Int = -1
     
     var graph = AxesDrawer()
     var hashSystem = HashDrawer()
@@ -131,6 +134,7 @@ class SRPlotAxe: NSObject {
         
         if (layer === self.layer) {
             graph.drawAxesInRect(ctx, bounds: self.layer.bounds, axeOrigin: origin!, xPointsToShow: xPointsToShow!, yPointsToShow: yPointsToShow!, numberOfTicks: numberOfSubticks, maxDataRange: self.maxDataRange)
+    
         } else if (layer === self.hashLayer) {
             hashSystem.drawHashInRect(ctx, bounds: self.layer.bounds, axeOrigin: origin!, xPointsToShow: xPointsToShow!, yPointsToShow: yPointsToShow!, numberOfTicks: numberOfSubticks, maxDataRange: self.maxDataRange)
         }

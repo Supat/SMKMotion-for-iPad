@@ -52,6 +52,7 @@ class ViewController: UIViewController, NSSPlashViewDelegate, SMKMotionSensorDel
             thirdGraphView.yTicks[1] = "X"
             thirdGraphView.yTicks[2] = "Y"
             thirdGraphView.yTicks[3] = "Z"
+            thirdGraphView.axeLayer?.graph.maxDataRange = 1
         }
     }
     
@@ -70,16 +71,16 @@ class ViewController: UIViewController, NSSPlashViewDelegate, SMKMotionSensorDel
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        anotherDataTimer = NSTimer(timeInterval:1/60, target: self, selector: "addData2", userInfo: nil, repeats: true)
-        NSRunLoop.currentRunLoop().addTimer(anotherDataTimer!, forMode: NSRunLoopCommonModes)
+//        anotherDataTimer = NSTimer(timeInterval:1/60, target: self, selector: "addData2", userInfo: nil, repeats: true)
+//        NSRunLoop.currentRunLoop().addTimer(anotherDataTimer!, forMode: NSRunLoopCommonModes)
         // Do any additional setup after loading the view, typically from a nib.
         self.view.layer.backgroundColor = UIColor.redColor().CGColor
         
-//        persistanceSensorReconnectTimer = NSTimer(timeInterval: 1/60, target: self, selector: "persistReconnectToSensor", userInfo: nil, repeats: true)
-//        NSRunLoop.currentRunLoop().addTimer(persistanceSensorReconnectTimer!, forMode: NSRunLoopCommonModes)
+        persistanceSensorReconnectTimer = NSTimer(timeInterval: 1/60, target: self, selector: "persistReconnectToSensor", userInfo: nil, repeats: true)
+        NSRunLoop.currentRunLoop().addTimer(persistanceSensorReconnectTimer!, forMode: NSRunLoopCommonModes)
         
         sensorModule.delegate = self
-//        sensorModule.scanForRemoteSensor()
+        sensorModule.scanForRemoteSensor()
         
     }
 
@@ -89,11 +90,11 @@ class ViewController: UIViewController, NSSPlashViewDelegate, SMKMotionSensorDel
     
     func addData2() {
         
-        let cgCount = 0.0//Double(++count) * 1/60 % 1
+//        let cgCount : Double = 0.0//Double(++count) * 1/60 % 1
         
-        graphView.addData([cgCount, cgCount, cgCount, cgCount, cgCount , cgCount])
-        secondGraphView.addData([cgCount, cgCount, cgCount, cgCount, cgCount , cgCount])
-        thirdGraphView.addData([cgCount, cgCount, cgCount, cgCount])
+//        graphView.addData([cgCount, cgCount, cgCount, cgCount, cgCount , cgCount])
+//        secondGraphView.addData([100.00,-100.0,300.0])
+//        thirdGraphView.addData([0.0, 0.0, 0.0, 0.0])
 
     }
     //MARK: Implementations

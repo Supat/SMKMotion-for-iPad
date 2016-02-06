@@ -192,8 +192,7 @@ import UIKit
         get {
             //something about anchor point being 0.5
 //            return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x, y: (self.frame.height / 2) + graphAxes.position.y - 9)
-            return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x , y: (self.frame.height / 2) + graphAxes.position.y -
-            (self.titleField!.frame.height / 2) )
+            return CGPoint(x: graphAxes.position.x - graphAxes.pointsPerUnit.x , y: (self.frame.height / 2) + graphAxes.position.y )
         }
     }
     

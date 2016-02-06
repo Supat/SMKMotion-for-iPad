@@ -16,7 +16,7 @@ class SRMergePlotView: SRPlotView {
             return (self.axeLayer?.maxDataRange)!
         }
         set {
-            self.axeLayer?.maxDataRange = newValue * 2
+            self.axeLayer?.maxDataRange = newValue
             let textSize = "\(self.maxDataRange)".sizeWithAttributes([NSFontAttributeName: UIFont.systemFontOfSize(15)])
                 self.axeLayer?.padding.x = textSize.width * 1.5
                 self.axeLayer?.layer.setNeedsDisplay()

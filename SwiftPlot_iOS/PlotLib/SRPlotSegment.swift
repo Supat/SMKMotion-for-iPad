@@ -34,6 +34,9 @@ class SRPlotSegment : NSObject {
 
     
     override func drawLayer(layer: CALayer, inContext ctx: CGContext) {
+        CGContextTranslateCTM(ctx, 0.0, self.layer.bounds.height)
+        CGContextScaleCTM(ctx, 1.0, -1.0)
+
         //skip drawing if graph layer does not exist
         if self.axeSystem == nil {
             return
@@ -48,13 +51,14 @@ class SRPlotSegment : NSObject {
         for var c = 0; c < dataStorage.count; ++c
         {
             for var i = 0 ; i < 59 ; ++i {
-                let data = minMaxNormalization(dataStorage[c][i], min: -axeSystem!.graph.maxDataRange, max: axeSystem!.graph.maxDataRange)
-                let nextData = minMaxNormalization(dataStorage[c][i+1], min: -axeSystem!.graph.maxDataRange, max: axeSystem!.graph.maxDataRange)
+                let data = minMaxNormalization(dataStorage[c][i], min: axeSystem!.graph.minDataRange, max: axeSystem!.graph.maxDataRange)
+                let nextData = minMaxNormalization(dataStorage[c][i+1], min: axeSystem!.graph.minDataRange, max: axeSystem!.graph.maxDataRange)
                 //merge axis and  min max normalization using its range
+                print(axeSystem?.graph.minDataRange)
                 let apy = axeSystem!.graph.anchorPoint.y
                 let ppx = axeSystem!.graph.pointsPerUnit.x
                 let ppy = axeSystem!.graph.pointsPerUnit.y
-                let channelPos = (axeSystem!.signalType == .Split) ? CGFloat(c) * ppy : 0
+                let channelPos = (axeSystem!.signalType == .Split) ? CGFloat(c+1) * ppy : 0
                 lines[i*2].x = align(CGFloat(i) * (ppx / 60))
                 lines[i*2].y = (channelPos + (self.layer.bounds.height * apy)) + (CGFloat(data) * ppy)
                 lines[i*2+1].x = align(CGFloat(i+1) * (ppx / 60))
@@ -127,7 +131,7 @@ class SRPlotSegment : NSObject {
     }
     
     private func minMaxNormalization(input: Double, min: Int, max: Int) -> Double {
-        return ((input - Double(min))/(Double(max) - Double(min))) * (1 - (-1)) + (-1);
+        return ((input - Double(min))/(Double(max) - Double(min))) * (axeSystem!.signalType == .Split ? 1 : (1 - (-1))) + (axeSystem!.signalType == .Split ? 0 : (-1));
 
     }
     
